@@ -1,20 +1,41 @@
-<?php
-	include("resources/functions.php");
+<?php 
+include("resources/functions.php");
+
+
+
+	$game_id = 0;
+	if(isset($_GET["id"])) {
+		$game_id = $_GET["id"];
+	}
+
+
+	$plan = getPlanID($game_id);
+	$planned = getPlanned();
 	$games = getAllGames();
-	include("resources/header.php");
+
+
+
+
 
 	if($_SERVER["REQUEST_METHOD"] == "POST") {
-        $data2 = array(
-            "game" => $_POST["game"],
-            "time" => $_POST["time"],
-            "explainsPerson" => $_POST["explainsPerson"],
-            "players" => $_POST["players"]
-        );
-        createGame($data2);
-        header("location: index.php");
-    }
+	        $data4 = array(
+	            "game" => $_POST["game"],
+	            "time" => $_POST["time"],
+	            "id" => $_GET["id"],
+	            "explainsPerson" => $_POST["explainsPerson"],
+	            "players" => $_POST["players"]
+	        );
+	        updateGame($data4);
+	        header("location: planned.php");
+	}
+
+
+include("resources/header.php");
 
 ?>
+
+
+
 
 <div class="mb-5 mt-2">
 	<h1>Spelletje Plannen</h1>
@@ -24,7 +45,7 @@
 				<?php
 					foreach ($games as $game) {
 				?>
-				<option value="<?=$game["id"]?>"><?=$game["name"]?></option>
+				<option value="<?=$game["id"]?>" <?php if($game["id"] == $plan["game_id"]) { echo "selected";} ?>><?=$game["name"]?></option>
 				<?php
 				}
 				?>
@@ -35,7 +56,7 @@
 			<label for="time">Choose a time for your appointment:</label>
 
 			<input type="datetime-local" id="time"
-		       name="time" value="2018-06-12T19:30"
+		       name="time" value="<?=$plan["planned_time"]?>"
 		       min="2018-06-07T00:00" max="2018-06-14T00:00">
 		</div>
 		
@@ -50,16 +71,18 @@
 		</div>
 		<div class="form-group md-form mx-5 my-5">
 			<label for="players">Players</label>
-			<input name="players" type="text" class="form-control" id="players" placeholder="Number of players">
+			<input name="players" type="text" class="form-control" id="players" placeholder="Number of players" value="<?=$plan["count_players"]?>">
 		</div>
-		<button type="submit" class="btn btn-primary form-group md-form mx-5 my-5">Plannen</button>
+		<button type="submit" class="btn btn-success form-group md-form mx-5 my-5">Edit</button>
 	</form>
 </div>
 
 
+
+
 <?php 
-	include("resources/footer.php");
+
+
+include("resources/footer.php");
+
 ?>
-
-
-

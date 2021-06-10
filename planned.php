@@ -38,14 +38,15 @@
 				$game = getGame($game_id2);
 			?>
 			<div class="card-body col-lg-4">
-				<img class="card-img-top img-fluid w-50 p-3" src="img/<?=$game["image"]?>">
 				<div class="card-body">
 					<h4 class="card-title"><?=$game["name"]?></h4>
 					<p class="card-text"><?=$plan["planned_time"]?></p>
 					<p class="card-text"><?=$game["play_minutes"]?> minutes</p>
 					<p class="card-text"><?=$plan["explains_person"]?></p>
+					<a class="btn btn-success" href="editPlanned.php?id=<?=$plan["id"]?>">Edit</a>
 					<a href="plannedGame.php?id=<?=$game["id"]?>" class="btn btn-primary">More details</a>
-					<a class="btn btn-danger text-whit" href="?id=<?=$plan["id"]?>" onclick="javascript: return confirm('Weet je het zeker?');">Delete appointment x</a>
+					<a class="btn btn-danger text-whit" href="?id=<?=$plan["id"]?>" onclick="javascript: return confirm('Weet je het zeker?');">Delete x</a>
+
 				</div>
 			
 			</div>
